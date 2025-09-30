@@ -12,14 +12,17 @@ RUN apk add --no-cache \
 # Copiar package.json e package-lock.json
 COPY package*.json ./
 
-# Instalar dependências (usando npm install em vez de npm ci)
-RUN npm install --omit=dev
+# Instalar TODAS as dependências (incluindo devDependencies para build)
+RUN npm install
 
 # Copiar código fonte
 COPY . .
 
 # Compilar aplicação
 RUN npm run build
+
+# Remover devDependencies após o build
+RUN npm prune --production
 
 # Criar diretórios necessários
 RUN mkdir -p /app/videos /app/logs
