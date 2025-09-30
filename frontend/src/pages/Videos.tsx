@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { videoService } from '../services/videoService';
 import type { Video } from '../services/videoService';
@@ -19,6 +19,7 @@ export const Videos: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [thumbnailUrls, setThumbnailUrls] = useState<Record<number, string>>({});
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -44,6 +45,25 @@ export const Videos: React.FC = () => {
     video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     video.description?.toLowerCase().includes(searchQuery.toLowerCase())
   ) || [];
+
+  // Carregar thumbnails quando os vídeos mudarem
+  useEffect(() => {
+    if (videos) {
+      const loadThumbnails = async () => {
+        const urls: Record<number, string> = {};
+        for (const video of videos) {
+          try {
+            const url = await videoService.getVideoThumbnail(video.id);
+            urls[video.id] = url;
+          } catch (error) {
+            console.error(`Erro ao carregar thumbnail do vídeo ${video.id}:`, error);
+          }
+        }
+        setThumbnailUrls(urls);
+      };
+      loadThumbnails();
+    }
+  }, [videos]);
 
   const formatFileSize = (bytes: number) => {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
@@ -111,9 +131,9 @@ export const Videos: React.FC = () => {
         {filteredVideos.map((video) => (
           <div key={video.id} className="card">
             <div style={{ marginBottom: '15px' }}>
-              {video.thumbnail_path ? (
+              {thumbnailUrls[video.id] ? (
                 <img
-                  src={videoService.getVideoThumbnail(video.id)}
+                  src={thumbnailUrls[video.id]}
                   alt={video.title}
                   style={{
                     width: '100%',
