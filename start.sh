@@ -34,17 +34,33 @@ fi
 echo "🛑 Parando containers existentes..."
 docker-compose down
 
+# Limpar imagens antigas para evitar cache
+echo "🧹 Limpando cache do Docker..."
+docker system prune -f
+
 # Construir e iniciar os serviços
 echo "🔨 Construindo e iniciando serviços..."
-docker-compose up -d --build
+docker-compose up -d --build --force-recreate
 
 # Aguardar os serviços iniciarem
 echo "⏳ Aguardando serviços iniciarem..."
-sleep 30
+sleep 45
 
 # Verificar status dos serviços
 echo "🔍 Verificando status dos serviços..."
 docker-compose ps
+
+# Verificar se todos os serviços estão rodando
+echo "🔍 Verificando saúde dos serviços..."
+for service in postgres backend frontend nginx; do
+    if docker-compose ps | grep -q "$service.*Up"; then
+        echo "✅ $service está rodando"
+    else
+        echo "❌ $service não está rodando"
+        echo "Logs do $service:"
+        docker-compose logs --tail=20 $service
+    fi
+done
 
 # Verificar logs de inicialização
 echo "📋 Verificando logs de inicialização..."
@@ -84,3 +100,6 @@ echo "   docker-compose down"
 echo ""
 echo "🔄 Para reiniciar os serviços:"
 echo "   docker-compose restart"
+echo ""
+echo "🔧 Para ver logs de um serviço específico:"
+echo "   docker-compose logs -f [nome_do_serviço]"
