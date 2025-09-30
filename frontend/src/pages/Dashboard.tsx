@@ -6,7 +6,7 @@ import { playlistService } from '../services/playlistService';
 import { userService } from '../services/userService';
 import { 
   Video, 
-  User, 
+  User as UserIcon, 
   Eye, 
   TrendingUp,
   Clock,
@@ -61,7 +61,7 @@ export const Dashboard: React.FC = () => {
     {
       title: 'Usuários',
       value: users?.length || 0,
-      icon: User,
+      icon: UserIcon,
       color: '#f39c12',
     },
   ];

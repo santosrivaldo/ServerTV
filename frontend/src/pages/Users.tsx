@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { userService, User } from '../services/userService';
 import { toast } from 'react-toastify';
-import { Plus, Search, User, Edit, Trash2, Shield, MapPin, Building, Store } from 'lucide-react';
+import { Plus, Search, User as UserIcon, Edit, Trash2, Shield, MapPin, Building, Store } from 'lucide-react';
 
 export const Users: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -204,7 +204,7 @@ export const Users: React.FC = () => {
 
       {filteredUsers.length === 0 && (
         <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
-          <User size={48} style={{ color: '#7f8c8d', marginBottom: '15px' }} />
+          <UserIcon size={48} style={{ color: '#7f8c8d', marginBottom: '15px' }} />
           <h3 style={{ color: '#7f8c8d', marginBottom: '10px' }}>
             Nenhum usuário encontrado
           </h3>
