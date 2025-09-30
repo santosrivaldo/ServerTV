@@ -1,0 +1,46 @@
+# Configurações de desenvolvimento
+# Este arquivo é usado para sobrescrever configurações do docker-compose.yml
+
+version: '3.8'
+
+services:
+  # Backend com hot reload para desenvolvimento
+  backend:
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    command: npm run start:dev
+
+  # Frontend com hot reload para desenvolvimento
+  frontend:
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_API_URL: http://localhost:3000/api
+    command: npm start
+
+  # PostgreSQL com dados persistentes
+  postgres:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: servertv_dev
+      POSTGRES_USER: servertv_user
+      POSTGRES_PASSWORD: servertv_password
+
+  # Nginx com configuração de desenvolvimento
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./videos:/var/www/videos
+    ports:
+      - "80:80"
+      - "443:443"
+
+volumes:
+  postgres_data:
+    driver: local
