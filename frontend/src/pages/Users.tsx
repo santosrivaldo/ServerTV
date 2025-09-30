@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { userService, User } from '../services/userService';
+import { userService, User as UserType } from '../services/userService';
 import { toast } from 'react-toastify';
 import { Plus, Search, User as UserIcon, Edit, Trash2, Shield, MapPin, Building, Store } from 'lucide-react';
 
