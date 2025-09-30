@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
-import { ApiProperty } from 'nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Video } from '../../videos/entities/video.entity';
 
 @Entity('video_stats')

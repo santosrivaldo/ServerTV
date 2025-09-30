@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import { ApiProperty } from 'nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
 import { PlaylistVideo } from '../../playlists/entities/playlist-video.entity';
 import { AccessToken } from '../../access-tokens/entities/access-token.entity';
