@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { videoService, Video } from '../services/videoService';
+import { videoService } from '../services/videoService';
+import type { Video } from '../services/videoService';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { 
