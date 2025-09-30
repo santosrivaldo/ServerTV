@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await authService.login(email, password);
       localStorage.setItem('token', response.access_token);
       setUser(response.user);
+      console.log('Login successful:', response.user);
     } catch (error) {
       throw error;
     }
@@ -77,6 +78,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading,
     isAuthenticated: !!user,
   };
+
+  console.log('AuthContext - user:', user, 'isAuthenticated:', !!user);
 
   return (
     <AuthContext.Provider value={value}>
