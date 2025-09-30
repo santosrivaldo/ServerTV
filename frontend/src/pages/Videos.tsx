@@ -12,7 +12,8 @@ import {
   Edit, 
   Trash2,
   Eye,
-  Clock
+  Clock,
+  Video as VideoIcon
 } from 'lucide-react';
 
 export const Videos: React.FC = () => {
@@ -153,7 +154,7 @@ export const Videos: React.FC = () => {
                   borderRadius: '4px',
                   color: '#7f8c8d'
                 }}>
-                  <Video size={48} />
+                  <VideoIcon size={48} />
                 </div>
               )}
             </div>
