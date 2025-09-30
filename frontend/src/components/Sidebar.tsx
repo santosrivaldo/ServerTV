@@ -34,6 +34,7 @@ export const Sidebar: React.FC = () => {
       position: 'fixed',
       left: 0,
       top: 0,
+      zIndex: 1000,
     }}>
       <div style={{ padding: '0 20px', marginBottom: '30px' }}>
         <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>
