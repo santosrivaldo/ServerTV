@@ -272,7 +272,7 @@ export const Videos: React.FC = () => {
 
       {filteredVideos.length === 0 && (
         <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
-          <Video size={48} style={{ color: '#7f8c8d', marginBottom: '15px' }} />
+          <VideoIcon size={48} style={{ color: '#7f8c8d', marginBottom: '15px' }} />
           <h3 style={{ color: '#7f8c8d', marginBottom: '10px' }}>
             Nenhum vídeo encontrado
           </h3>
